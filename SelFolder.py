@@ -11,7 +11,7 @@ sel.geometry("800x400")
 sel.title("Select Folder")
 sel.resizable(False, False)
 sel.iconbitmap("LycheeLogo.ico")
-sel.grid_rowconfigure(0, weight=1)  # configure grid system
+sel.grid_rowconfigure(0, weight=1)
 sel.grid_columnconfigure(0, weight=1)
 
 fileAs = ctk.CTk()
