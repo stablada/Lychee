@@ -1,3 +1,5 @@
+import re
+
 import customtkinter as ctk
 import tkinter as tk
 
@@ -18,21 +20,30 @@ def manageTheme():
     print("To be implemented")
 
 
+def newTask(task, fileLoc):
+    f = open("/tasks.txt", "a")
+    f.write("X" + task + "Y")
+    f.close()
+
+
+def refresh(fileLoc):
+    taskList = []
+    try:
+        with open(fileLoc + "/tasks.txt", "r") as file:
+            data = file.read().replace('\n', '')
+        taskList = list(filter(None, re.split("X|Y", data)))
+    except:
+        openF = open("/tasks.txt", "x")
+        openF.close()
+        taskList = []
+
+
 class MainUI:
     def __init__(self, fileLoc):
-        menubar = tk.Menu(root)
-
-        settingMenu = tk.Menu(root, tearoff=0)
-        settingMenu.add_command(label="Manage Theme", command=lambda: manageTheme())
-        settingMenu.add_command(label="Exit", command=lambda: exit(-1))
-
-        newTask = ctk.CTkButton(master=root, text="New Task", command=lambda: print("new task"))
-        newTask.grid(row=0, column=0, columnspan=2, sticky="nsew")
-        newLog = ctk.CTkButton(master=root, text="New Task", command=lambda: print("new log"))
-        newLog.grid(row=0, column=0, columnspan=2, sticky="nsew")
-
         contentFrame = ctk.CTkFrame(master=root).grid(row=0, column=0, sticky="nsew")
-
         taskFrame = ctk.CTkFrame(master=root, fg_color="gray").grid(row=0, column=1, sticky="nsew")
+
+
+
 
         root.mainloop()
